@@ -15,6 +15,13 @@ public class Product {
         this.id = new Random().nextLong();
     }
 
+    public Product(String name, String category, double price) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.id = new Random().nextLong();
+    }
+
     @Override
     public String toString() {
         return "Product{" +

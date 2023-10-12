@@ -107,10 +107,12 @@ public class Application {
 
         TimeUnit.MILLISECONDS.sleep(1500);
         System.err.println("Numero 6");
+        System.out.println("File di testo creato con successo.");
         salvaProdottiSuDisco(productsList);
 
         TimeUnit.MILLISECONDS.sleep(1500);
         System.err.println("Numero 7");
+        leggiProdottiDaDisco().forEach(System.out::println);
     }
 
     //*********************************************** Esercizio 6 *******************************************
@@ -123,6 +125,24 @@ public class Application {
                 System.err.println(e.getMessage());
             }
         }
+    }
+
+    //*********************************************** Esercizio 6 *******************************************
+    public static ArrayList<Product> leggiProdottiDaDisco() throws IOException {
+        File file = new File("src/listProducts.txt");
+        ArrayList<Product> productsList = new ArrayList<>();
+        try {
+            String contenuto = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+            String[] separetedProductString = contenuto.split(System.lineSeparator());
+            for (String product : separetedProductString) {
+                String[] productData = product.split("@");
+                Product composedProduct = new Product(productData[0], productData[1], Double.parseDouble(productData[2]) * 100.0 / 100.0);
+                productsList.add(composedProduct);
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        return productsList;
     }
 
 }
