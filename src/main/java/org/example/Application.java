@@ -65,10 +65,18 @@ public class Application {
         orderList.forEach(System.out::println);
 
         TimeUnit.MILLISECONDS.sleep(1500);
-        //***********************************************Esercizio 1*******************************************
+        //*********************************************** Esercizio 1 *******************************************
         System.err.println("Numero 1");
 
         Map<Customer, List<Order>> customerOrders = orderList.stream().collect(Collectors.groupingBy(Order::getCustomer));
         customerOrders.forEach((customer, orders)-> System.out.println("Customer "+ customer.getName()+ ", orders:"+ orders));
+
+        TimeUnit.MILLISECONDS.sleep(1500);
+        //*********************************************** Esercizio 2 *******************************************
+        System.err.println("Numero 2");
+        Map<Customer, Double> customerTotalExpense = orderList.stream().collect(Collectors.groupingBy(Order::getCustomer,
+                Collectors.summingDouble(order-> order.getProducts().stream().mapToDouble(Product::getPrice).sum()*100.0/100.0
+        )));
+        customerTotalExpense.forEach((customer, total)-> System.out.println("Customer "+ customer.getName()+ ", total expense:"+ total));
     }
 }
