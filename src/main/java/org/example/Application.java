@@ -78,5 +78,13 @@ public class Application {
                 Collectors.summingDouble(order-> order.getProducts().stream().mapToDouble(Product::getPrice).sum()*100.0/100.0
         )));
         customerTotalExpense.forEach((customer, total)-> System.out.println("Customer "+ customer.getName()+ ", total expense:"+ total));
+
+        TimeUnit.MILLISECONDS.sleep(1500);
+        //*********************************************** Esercizio 3 *******************************************
+        System.err.println("Numero 3");
+        List<Product> sortedProductList= productsList.stream().sorted(Comparator.comparing(Product::getPrice,Comparator.reverseOrder())).toList();
+        Product productWithHighestPrice=sortedProductList.get(0);
+        List<Product> highestValueProductList= sortedProductList.stream().filter(product -> product.getPrice()==productWithHighestPrice.getPrice()).toList();
+        highestValueProductList.forEach(System.out::println);
     }
 }
