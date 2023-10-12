@@ -4,7 +4,11 @@ import com.github.javafaker.Faker;
 import enteties.Customer;
 import enteties.Order;
 import enteties.Product;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -12,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class Application {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         Faker faker = new Faker(Locale.ITALY);
 
         Supplier<Product> bookSupplier = () -> new Product(faker.book().title(), "book");
@@ -100,5 +104,25 @@ public class Application {
         System.err.println("Numero 5");
         Map<String, Double> totalCategoryExpenses = productsList.stream().collect(Collectors.groupingBy(Product::getCategory, Collectors.summingDouble(Product::getPrice)));
         totalCategoryExpenses.forEach((category, total) -> System.out.println("Category:" + category + ", total:" + total));
+
+        TimeUnit.MILLISECONDS.sleep(1500);
+        System.err.println("Numero 6");
+        salvaProdottiSuDisco(productsList);
+
+        TimeUnit.MILLISECONDS.sleep(1500);
+        System.err.println("Numero 7");
     }
+
+    //*********************************************** Esercizio 6 *******************************************
+    public static void salvaProdottiSuDisco(List<Product> productList) {
+        File file = new File("src/listProducts.txt");
+        for (Product product : productList) {
+            try {
+                FileUtils.writeStringToFile(file, product.getName() + "@" + product.getCategory() + "@" + product.getPrice() + System.lineSeparator(), StandardCharsets.UTF_8, true);
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+    }
+
 }
