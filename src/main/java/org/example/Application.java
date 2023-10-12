@@ -17,12 +17,18 @@ import java.util.stream.Collectors;
 public class Application {
 
     public static void main(String[] args) throws InterruptedException, IOException {
+        File file = new File("src/listProducts.txt");
+        try {
+            FileUtils.writeStringToFile(file, "", StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
         Faker faker = new Faker(Locale.ITALY);
 
         Supplier<Product> bookSupplier = () -> new Product(faker.book().title(), "book");
         Supplier<Product> televisionSupplier = () -> new Product(faker.food().fruit(), "fruits");
-        Supplier<Product> babyProductSupplier = () -> new Product(faker.pokemon().name() + "peluche", "baby");
-        Supplier<Product> boysProductSupplier = () -> new Product(faker.pokemon().name() + "card", "boys");
+        Supplier<Product> babyProductSupplier = () -> new Product(faker.pokemon().name() + " peluche", "baby");
+        Supplier<Product> boysProductSupplier = () -> new Product(faker.pokemon().name() + " Pokemon card", "boys");
 
         Supplier<Customer> tierOneCustomer = () -> new Customer(faker.name().name(), 1);
         Supplier<Customer> tierTwoCustomer = () -> new Customer(faker.name().name(), 2);
@@ -128,7 +134,7 @@ public class Application {
     }
 
     //*********************************************** Esercizio 6 *******************************************
-    public static ArrayList<Product> leggiProdottiDaDisco() throws IOException {
+    public static ArrayList<Product> leggiProdottiDaDisco() {
         File file = new File("src/listProducts.txt");
         ArrayList<Product> productsList = new ArrayList<>();
         try {
