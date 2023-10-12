@@ -86,5 +86,13 @@ public class Application {
         Product productWithHighestPrice=sortedProductList.get(0);
         List<Product> highestValueProductList= sortedProductList.stream().filter(product -> product.getPrice()==productWithHighestPrice.getPrice()).toList();
         highestValueProductList.forEach(System.out::println);
+
+        TimeUnit.MILLISECONDS.sleep(1500);
+        //*********************************************** Esercizio 4 *******************************************
+        System.err.println("Numero 4");
+        List<Double> averegeOrderExpense=
+                orderList.stream().map(Order::getProducts).toList().stream()
+                        .map(listProducts ->listProducts.stream().collect(Collectors.averagingDouble(Product::getPrice))*100.0/100.0).toList();
+        averegeOrderExpense.forEach(System.out::println);
     }
 }
