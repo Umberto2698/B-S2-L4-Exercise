@@ -133,7 +133,7 @@ public class Application {
         }
     }
 
-    //*********************************************** Esercizio 6 *******************************************
+    //*********************************************** Esercizio 7 *******************************************
     public static ArrayList<Product> leggiProdottiDaDisco() {
         File file = new File("src/listProducts.txt");
         ArrayList<Product> productsList = new ArrayList<>();
